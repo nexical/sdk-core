@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { ApiClient, type ApiClientOptions } from './core.js';
 
 export * from './core.js';

@@ -1,3 +1,8 @@
+---
+name: sdk-core-esm-imports
+description: 'This skill enforces strict ESM compatibility and architectural consistency within the `sdk-core` package.'
+---
+
 # Skill: SDK ESM Imports & Resource Standards
 
 This skill enforces strict ESM compatibility and architectural consistency within the `sdk-core` package.

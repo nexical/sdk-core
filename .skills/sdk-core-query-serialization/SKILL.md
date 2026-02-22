@@ -1,3 +1,8 @@
+---
+name: sdk-core-query-serialization
+description: "Expert guide for implementing type-safe SDK resources with nested query parameter serialization. This skill ensures that all SDK modules follow the 'Shell-Registry' compatible communication pattern."
+---
+
 # Skill: SDK Core Query Serialization
 
 Expert guide for implementing type-safe SDK resources with nested query parameter serialization. This skill ensures that all SDK modules follow the "Shell-Registry" compatible communication pattern.

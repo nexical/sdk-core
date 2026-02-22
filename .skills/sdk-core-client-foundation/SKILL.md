@@ -1,3 +1,8 @@
+---
+name: sdk-core-client-foundation
+description: 'This skill governs the implementation and extension of the core SDK infrastructure within the Nexical Ecosystem. It defines the foundational `ApiClient`, error handling mechanisms, and authentication ...'
+---
+
 # Skill: SDK Core Client Foundation
 
 This skill governs the implementation and extension of the core SDK infrastructure within the Nexical Ecosystem. It defines the foundational `ApiClient`, error handling mechanisms, and authentication strategies that power all module-specific SDKs.

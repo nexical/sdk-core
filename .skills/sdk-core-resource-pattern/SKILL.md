@@ -1,3 +1,8 @@
+---
+name: sdk-core-resource-pattern
+description: 'This skill governs the implementation of SDK functional areas (Resources) within the `sdk-core` package. It ensures that all data access logic is organized into standardized, type-safe classes that ut...'
+---
+
 # Abstract Resource Pattern (sdk-core)
 
 This skill governs the implementation of SDK functional areas (Resources) within the `sdk-core` package. It ensures that all data access logic is organized into standardized, type-safe classes that utilize centralized request orchestration and query serialization.

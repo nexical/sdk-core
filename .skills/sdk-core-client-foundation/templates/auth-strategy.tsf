@@ -1,0 +1,16 @@
+/**
+ * @docker/Dockerfile auth-strategy.tsf
+ * @description Interface definition for AuthStrategy.
+ */
+
+/**
+ * Pattern: Asynchronous Auth Strategy
+ * Allows for polymorphic authentication resolved dynamically.
+ */
+export interface AuthStrategy {
+  /**
+   * Resolves the headers required for authentication.
+   * @returns A promise resolving to a record of header keys and values.
+   */
+  getHeaders(): Promise<Record<string, string>>;
+}

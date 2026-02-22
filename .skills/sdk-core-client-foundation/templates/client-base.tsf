@@ -1,0 +1,90 @@
+/**
+ * @docker/Dockerfile client-base.tsf
+ * @description Fragment for the base ApiClient class.
+ */
+
+import type { AuthStrategy } from './auth.js';
+import { NexicalError } from './errors.js';
+
+export interface ApiClientOptions {
+  baseUrl: string;
+  authStrategy: AuthStrategy;
+}
+
+/**
+ * Pattern: Named Export Infrastructure
+ * The core ApiClient uses named exports and handles request orchestration.
+ */
+export class ApiClient {
+  private readonly baseUrl: string;
+  private readonly authStrategy: AuthStrategy;
+
+  constructor(options: ApiClientOptions) {
+    /** 
+     * Pattern: Base URL Normalization
+     * Normalizes the baseUrl to remove trailing slashes.
+     */
+    this.baseUrl = options.baseUrl.replace(/\/$/, '');
+    this.authStrategy = options.authStrategy;
+  }
+
+  /**
+   * Pattern: Generic Request Orchestration
+   * Orchestrates the API request lifecycle with full type safety.
+   */
+  async request<T>(
+    method: string,
+    path: string,
+    body?: unknown,
+    options: RequestInit = {}
+  ): Promise<T> {
+    const authHeaders = await this.authStrategy.getHeaders();
+    const url = `${this.baseUrl}${path.startsWith('/') ? path : `/${path}`}`;
+
+    const config: RequestInit = {
+      ...options,
+      method,
+      headers: {
+        'Content-Type': 'application/json',
+        ...authHeaders,
+        ...options.headers,
+      },
+      /**
+       * Pattern: Default Credential Inclusion
+       * Default to 'include' for cookies/auth headers in browser environments.
+       */
+      credentials: options.credentials || 'include',
+    };
+
+    if (body) {
+      config.body = JSON.stringify(body);
+    }
+
+    const response = await fetch(url, config);
+
+    /**
+     * Pattern: 204 No Content Compatibility
+     * Return an empty object to prevent JSON parsing errors.
+     */
+    if (response.status === 204) {
+      return {} as T;
+    }
+
+    if (!response.ok) {
+      let errorData: unknown;
+      try {
+        errorData = await response.json();
+      } catch {
+        errorData = { message: response.statusText };
+      }
+
+      /**
+       * Pattern: Structured Error Handling
+       * Wraps API errors in the NexicalError class.
+       */
+      throw new NexicalError(response.status, response.statusText, errorData);
+    }
+
+    return response.json() as Promise<T>;
+  }
+}

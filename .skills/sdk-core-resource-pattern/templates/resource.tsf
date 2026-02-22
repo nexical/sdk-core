@@ -1,0 +1,23 @@
+/**
+ * @fragment ResourceTemplate
+ * @description Standard boilerplate for an SDK Resource class extending BaseResource.
+ */
+
+import { BaseResource } from '../resource.js';
+import type { ApiClient } from '../client.js';
+
+/* PHANTOM_DECLARATIONS_START */
+interface MyDataType { id: string; name: string; }
+/* PHANTOM_DECLARATIONS_END */
+
+export class ${ResourceName}Resource extends BaseResource {
+  /**
+   * Creates a new instance of ${ResourceName}Resource.
+   * @param client - The ApiClient instance for request orchestration.
+   */
+  constructor(client: ApiClient) {
+    super(client);
+  }
+
+  // Implementation methods follow...
+}

@@ -1,0 +1,22 @@
+/**
+ * @fragment ResourceMethodTemplate
+ * @description Standard implementation for a resource operation using _request and buildQuery.
+ */
+
+/* PHANTOM_DECLARATIONS_START */
+import { BaseResource } from '../resource.js';
+class MyResource extends BaseResource {
+  _request<T>(m: string, p: string, b?: unknown): Promise<T> { return {} as any; }
+}
+interface MyDataType { id: string; }
+/* PHANTOM_DECLARATIONS_END */
+
+/**
+ * ${Summary}
+ * @param filters - Optional filters for the request.
+ * @returns A promise resolving to the data.
+ */
+async ${methodName}(filters: Record<string, unknown> = {}): Promise<${ReturnType}> {
+  const query = this.buildQuery(filters);
+  return this._request<${ReturnType}>('${verb}', `${path}${query}`);
+}

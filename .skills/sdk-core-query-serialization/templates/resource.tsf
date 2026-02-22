@@ -1,0 +1,46 @@
+/**
+ * @core/.skills/sdk-core-query-serialization/SKILL.md {import('./resource.js').BaseResource}
+ * 
+ * Fragment Contract:
+ * 1. JSDoc header MUST reference the SDK-Core-Query-Serialization skill.
+ * 2. Exports the `fragment` tagged template literal.
+ * 3. Uses placeholder variables: `${name}`, `${entity}`.
+ */
+
+import { fragment } from '@/lib/generator/fragment.js';
+
+export default fragment`
+import { BaseResource } from '../resource.js';
+import type { ServiceResponse } from '@nexical/sdk-core';
+
+/**
+ * SDK Resource for the ${name} entity.
+ */
+export class ${name}Resource extends BaseResource {
+  /**
+   * List ${entity} records with optional filtering and pagination.
+   * @param filters - Nested filter object using the standard __ delimiter.
+   * @returns A promise resolving to a ServiceResponse containing the results.
+   */
+  public async list(filters?: Record<string, unknown>): Promise<ServiceResponse<unknown[]>> {
+    const params = this.buildQueryParams(filters);
+    return this.client.request<ServiceResponse<unknown[]>>({
+      method: 'GET',
+      path: '/api/${entity}/list',
+      params,
+    });
+  }
+
+  /**
+   * Retrieve a single ${entity} by ID.
+   * @param id - The unique identifier of the record.
+   * @returns A promise resolving to a ServiceResponse containing the entity.
+   */
+  public async get(id: string): Promise<ServiceResponse<unknown>> {
+    return this.client.request<ServiceResponse<unknown>>({
+      method: 'GET',
+      path: `/api/\${entity}/get/\${id}`,
+    });
+  }
+}
+`;

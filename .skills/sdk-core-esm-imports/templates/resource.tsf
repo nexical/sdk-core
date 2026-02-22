@@ -1,0 +1,30 @@
+/**
+ * @packages/sdk-core/.skills/sdk-core-esm-imports/SKILL.md sdk-core-esm-imports
+ * @packages/generator/src/utils/fragment-tag.ts New SDK Resource Template
+ */
+
+import { BaseResource } from './resource.js';
+import type { ApiClient } from './client.js';
+
+/**
+ * [RESOURCE_NAME] resource implementation.
+ * All SDK resource areas MUST extend BaseResource to inherit request orchestration logic.
+ */
+export class [RESOURCE_NAME] extends BaseResource {
+  /**
+   * @param client - The API client injected via constructor.
+   */
+  constructor(client: ApiClient) {
+    super(client);
+  }
+
+  /**
+   * Example method demonstrating the standard request flow.
+   */
+  public async get[ENTITY](id: string): Promise<[ENTITY]Type> {
+    return this.client.request<[ENTITY]Type>({
+      method: 'GET',
+      url: `/[PATH]/${id}`,
+    });
+  }
+}

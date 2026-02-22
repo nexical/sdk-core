@@ -1,0 +1,45 @@
+/**
+ * @docker/Dockerfile error-handler.tsf
+ * @description The NexicalError implementation pattern.
+ */
+
+/**
+ * Pattern: Structured Error Handling (NexicalError)
+ * Standardized error wrapper that extracts messages from various JSON structures.
+ */
+export class NexicalError extends Error {
+  public readonly status: number;
+  public readonly statusText: string;
+  public readonly data: unknown;
+
+  constructor(status: number, statusText: string, data: unknown) {
+    const message = NexicalError.extractMessage(data) || statusText || 'API Error';
+    super(message);
+    this.status = status;
+    this.statusText = statusText;
+    this.data = data;
+    this.name = 'NexicalError';
+  }
+
+  /**
+   * Extract an error message from a dynamic JSON response body.
+   * @param data - The error payload (using unknown to avoid 'any').
+   * @returns A string error message if found, otherwise undefined.
+   */
+  private static extractMessage(data: unknown): string | undefined {
+    if (typeof data === 'string') {
+      return data;
+    }
+
+    if (data && typeof data === 'object') {
+      const payload = data as Record<string, unknown>;
+      return (
+        (payload.error as string) ||
+        (payload.message as string) ||
+        (payload.msg as string)
+      );
+    }
+
+    return undefined;
+  }
+}

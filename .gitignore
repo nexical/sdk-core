@@ -27,5 +27,8 @@ pnpm-debug.log*
 coverage.json
 coverage/
 
+# skill files
+.agent/tmp/
+
 # generated files
 src/registry.generated.ts

@@ -39,6 +39,6 @@ const filters = {
 const params = new URLSearchParams();
 buildQueryParams(params, filters);
 
-console.log(params.toString());
+console.info(params.toString());
 // Output:
 // status=active&user__role=admin&user__profile__isVerified=true&tags=featured%2Cnew
